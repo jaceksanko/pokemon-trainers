@@ -4,7 +4,9 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'IBM_VGA'
+    fontFamily: 'IBM_VGA',
+    button: {
+    }
   },
   palette: {
     primary: {
@@ -21,7 +23,6 @@ const theme = createTheme({
     error: {
       main: '#FF4E4E'
     },
-    background: {}
   }
 });
 
