@@ -24,6 +24,12 @@ const theme = createTheme({
     button: {
       borderRadius: '2px',
       textTransform: 'capitalize'
+    },
+    h2: {
+      fontSize: '12px',
+      fontWeight: 400,
+      lineHeight: '20px',
+      fontStyle: 'normal'
     }
   },
   palette: {
