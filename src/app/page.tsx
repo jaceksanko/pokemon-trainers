@@ -3,6 +3,7 @@ import { CustomButton } from '@/components/CustomButton';
 import { Box } from '@mui/material';
 import { Suspense } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Form } from '@/components/form/Form';
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
         >
           <CurrentDate />
         </Suspense>
+        <Form />
         <Box>
           <CustomButton variant="primary">Submit</CustomButton>
         </Box>
