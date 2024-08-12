@@ -1,14 +1,16 @@
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import moment from 'moment-timezone';
+
+const TIMEZONE = 'Europe/Warsaw';
 
 export const CurrentDate = async () => {
   try {
-    const now = moment().tz('Europe/Warsaw');
+    const now = moment().tz(TIMEZONE);
 
-    const midnight = moment().tz('Europe/Warsaw').endOf('day');
+    const midnight = moment().tz(TIMEZONE).endOf('day');
     const timeToMidnight = midnight.diff(now, 'seconds');
 
-    const res = await fetch('https://www.timeapi.io/api/Time/current/zone?timeZone=Europe/Warsaw', {
+    const res = await fetch(`https://www.timeapi.io/api/Time/current/zone?timeZone=${TIMEZONE}`, {
       next: { revalidate: timeToMidnight }
     });
 
@@ -17,7 +19,7 @@ export const CurrentDate = async () => {
     }
 
     const data = await res.json();
-    const date = moment(data.datetime).tz('Europe/Warsaw').format('dddd, DD.MM.YYYY');
+    const date = moment(data.datetime).tz(TIMEZONE).format('dddd, DD.MM.YYYY');
 
     return (
       <Typography variant="h2" sx={{ textAlign: 'right' }}>
