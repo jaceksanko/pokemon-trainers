@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Typography, OutlinedInput, Theme, FormHelperText } from '@mui/material';
 import { FormAutocomplete } from './FormAutocomplete';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
-import { FormFieldKeys, FormFields } from './Form';
+import { FormFieldKeys, FormFields } from '../FormContainer';
 
 const inputStyles = (theme: Theme) => ({
   'label + &': {
@@ -29,7 +29,8 @@ export const FormInput = ({
   placeholder,
   isAutocomplete,
   control,
-  rules
+  rules,
+  type = 'text'
 }: {
   name: FormFieldKeys;
   label: string;
@@ -37,6 +38,7 @@ export const FormInput = ({
   isAutocomplete?: boolean;
   control: Control<FormFields>;
   rules?: Omit<RegisterOptions<FormFields, FormFieldKeys>, 'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'> | undefined;
+  type?: string;
 }) => {
   return (
     <Controller
@@ -51,9 +53,13 @@ export const FormInput = ({
           {isAutocomplete ? (
             <FormAutocomplete id={label} placeholder={placeholder} sx={inputStyles} field={field} />
           ) : (
-            <OutlinedInput id={label} placeholder={placeholder} sx={inputStyles} {...field} />
+            <OutlinedInput id={label} placeholder={placeholder} sx={inputStyles} {...field} type={type} />
           )}
-          {!!error && error.message && <FormHelperText error>{error.message}</FormHelperText>}
+          {!!error && error.message && (
+            <FormHelperText sx={{ fontSize: '10px', lineHeight: '16px', color: 'error.main' }} error>
+              {error.message}
+            </FormHelperText>
+          )}
         </FormControl>
       )}
     />

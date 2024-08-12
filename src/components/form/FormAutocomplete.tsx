@@ -7,7 +7,7 @@ import { useState } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ControllerRenderProps } from 'react-hook-form';
-import { FormFieldKeys, FormFields } from './Form';
+import { FormFieldKeys, FormFields } from '../FormContainer'
 
 export interface IPokemon {
   name: string;
@@ -128,6 +128,7 @@ export const FormAutocomplete = ({
           }}
         />
       )}
+      value={field.value as IPokemon | null}
       onChange={(event, item) => {
         field.onChange(item);
       }}

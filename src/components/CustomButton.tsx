@@ -23,6 +23,9 @@ export const CustomButton = ({
   children: React.ReactNode;
   padding?: string;
   variant: 'soft' | 'primary';
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  form?: string;
 }) => {
   const { backgroundColorHoover, ...colorAndBackground } = buttonVariants[variant];
   return (

@@ -1,9 +1,7 @@
 import { CurrentDate } from '@/components/CurrentDate';
-import { CustomButton } from '@/components/CustomButton';
 import { Box } from '@mui/material';
 import { Suspense } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import { Form } from '@/components/form/Form';
+import { FormContainer } from '@/components/FormContainer';
 import { Loader } from '@/components/Loader';
 
 export default function Home() {
@@ -27,10 +25,7 @@ export default function Home() {
         <Suspense fallback={<Loader />}>
           <CurrentDate />
         </Suspense>
-        <Form />
-        <Box>
-          <CustomButton variant="primary">Submit</CustomButton>
-        </Box>
+        <FormContainer />
       </Box>
     </Box>
   );
