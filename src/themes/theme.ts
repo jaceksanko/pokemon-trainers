@@ -1,6 +1,7 @@
 'use client';
 
 import { createTheme } from '@mui/material/styles';
+import { variables } from './variables';
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -30,31 +31,33 @@ const theme = createTheme({
       fontWeight: 400,
       lineHeight: '20px',
       fontStyle: 'normal'
-    }
+    },
+    body1: { fontSize: '14px', fontWeight: 400, lineHeight: '20px', color: variables.grey100 },
+    body2: { fontSize: '12px', fontWeight: 400, lineHeight: '20px', color: variables.grey200 }
   },
   palette: {
     common: {
-      black: '#2A2A2A',
-      white: '#FFFFFF'
+      black: variables.black,
+      white: variables.white
     },
     primary: {
-      main: '#9747FF',
-      light: 'rgba(151, 71, 255, 0.25)',
-      dark: '#7135BF'
+      main: variables.primaryMain,
+      light: variables.primaryLight,
+      dark: variables.primaryDark
     },
     grey: {
-      100: '#2A2A2A',
-      200: '#7F7F7F',
-      300: '#E4E4E4',
-      400: '#EEE'
+      100: variables.grey100,
+      200: variables.grey200,
+      300: variables.grey300,
+      400: variables.grey400
     },
     error: {
-      main: '#FF4E4E'
+      main: variables.errorMain
     }
   },
   customShadows: {
-    focused: '0px 0px 0px 4px rgba(151, 71, 255, 0.25)',
-    dialog: '0px 4px 10px 2px rgba(0, 0, 0, 0.10)'
+    focused: variables.customShadowFocused,
+    dialog: variables.customShadowDialog
   }
 });
 

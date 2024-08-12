@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Typography, OutlinedInput, Theme, FormHelperText } from '@mui/material';
 import { FormAutocomplete } from './FormAutocomplete';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
-import { FormFields } from './Form';
+import { FormFieldKeys, FormFields } from './Form';
 
 const inputStyles = (theme: Theme) => ({
   'label + &': {
@@ -31,17 +31,12 @@ export const FormInput = ({
   control,
   rules
 }: {
-  name: 'trainerName' | 'trainerAge' | 'pokemonName';
+  name: FormFieldKeys;
   label: string;
   placeholder: string;
   isAutocomplete?: boolean;
   control: Control<FormFields>;
-  rules?:
-    | Omit<
-        RegisterOptions<FormFields, 'trainerName' | 'trainerAge' | 'pokemonName'>,
-        'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'
-      >
-    | undefined;
+  rules?: Omit<RegisterOptions<FormFields, FormFieldKeys>, 'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'> | undefined;
 }) => {
   return (
     <Controller

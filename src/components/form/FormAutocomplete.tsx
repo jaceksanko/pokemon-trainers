@@ -7,7 +7,7 @@ import { useState } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ControllerRenderProps } from 'react-hook-form';
-import { FormFields } from './Form';
+import { FormFieldKeys, FormFields } from './Form';
 
 export interface IPokemon {
   name: string;
@@ -23,7 +23,7 @@ export const FormAutocomplete = ({
   id: string;
   placeholder: string;
   sx?: SxProps<Theme>;
-  field: ControllerRenderProps<FormFields, 'trainerName' | 'trainerAge' | 'pokemonName'>;
+  field: ControllerRenderProps<FormFields, FormFieldKeys>;
 }) => {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<readonly IPokemon[]>([]);
