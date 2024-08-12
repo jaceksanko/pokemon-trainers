@@ -4,7 +4,6 @@ import moment from 'moment-timezone';
 export const CurrentDate = async () => {
   try {
     const now = moment().tz('Europe/Warsaw');
-    console.log('now:', now.format());
 
     const midnight = moment().tz('Europe/Warsaw').endOf('day');
     const timeToMidnight = midnight.diff(now, 'seconds');
