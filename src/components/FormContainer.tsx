@@ -1,6 +1,5 @@
 'use client';
-import { Box, CircularProgress } from '@mui/material';
-import { FormInput } from './form/FormInput';
+import { Box } from '@mui/material';
 import { IPokemon } from './form/FormAutocomplete';
 import { PokemonContent } from './PokemonContent';
 import React, { Suspense, useState } from 'react';
