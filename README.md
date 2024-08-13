@@ -5,6 +5,12 @@ Requirements:
 - docker
 - gnu make
 
+Install dependencies and husky settings
+
+```bash
+make install
+```
+
 For development server:
 
 ```bash
@@ -30,7 +36,7 @@ make clean
 Running test 
 
 ```bash
-npm run test
+npm test
 ```
 
 Running Codegen
