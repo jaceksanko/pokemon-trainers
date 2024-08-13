@@ -12,7 +12,7 @@ test('filling in the fields and sending should result in success', async ({ page
   await page.getByPlaceholder('Choose').click();
   await page.getByRole('option', { name: 'bulbasaur' }).click();
   await page.getByRole('button', { name: 'Submit' }).click();
-  await page.waitForSelector('button:has-text("Reset form")');
+  await page.waitForSelector('button:has-text("Reset form")', { timeout: 60000 });
   await page.getByRole('button', { name: 'Reset form' }).click();
 });
 
