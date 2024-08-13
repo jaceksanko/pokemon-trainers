@@ -22,7 +22,7 @@ export const CurrentDate = async () => {
     const date = moment(data.datetime).tz(TIMEZONE).format('dddd, DD.MM.YYYY');
 
     return (
-      <Typography variant="h2" sx={{ textAlign: 'right' }}>
+      <Typography data-testid="current-date" variant="h2" sx={{ textAlign: 'right' }}>
         {date}
       </Typography>
     );

@@ -1,4 +1,4 @@
-.PHONY: dev prod
+make .PHONY: dev prod
 
 dev:
 	docker-compose up app

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "npx playwright test",
+    "test:record": "npx playwright codegen http://127.0.0.1:3000"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -24,6 +26,7 @@
     "react-hook-form": "^7.52.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.46.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

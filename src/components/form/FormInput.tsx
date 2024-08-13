@@ -56,7 +56,7 @@ export const FormInput = ({
             <OutlinedInput id={label} placeholder={placeholder} sx={inputStyles} {...field} type={type} />
           )}
           {!!error && error.message && (
-            <FormHelperText sx={{ fontSize: '10px', lineHeight: '16px', color: 'error.main' }} error>
+            <FormHelperText data-testid={name} sx={{ fontSize: '10px', lineHeight: '16px', color: 'error.main' }} error>
               {error.message}
             </FormHelperText>
           )}
