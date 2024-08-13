@@ -12,6 +12,7 @@ test('filling in the fields and sending should result in success', async ({ page
   await page.getByPlaceholder('Choose').click();
   await page.getByRole('option', { name: 'bulbasaur' }).click();
   await page.getByRole('button', { name: 'Submit' }).click();
+  await page.waitForSelector('button:has-text("Reset form")');
   await page.getByRole('button', { name: 'Reset form' }).click();
 });
 
@@ -23,21 +24,22 @@ test('filling in the fields and clicking Reset should clear the form', async ({ 
   await page.getByPlaceholder('Choose').click();
   await page.getByRole('option', { name: 'charmander' }).click();
 
-  let nameValue = await page.getByPlaceholder("Trainer's name").inputValue();
+  const nameValue = await page.getByPlaceholder("Trainer's name").inputValue();
   expect(nameValue).toBe('Name');
-  let ageValue = await page.getByPlaceholder("Trainer's age").inputValue();
+  const ageValue = await page.getByPlaceholder("Trainer's age").inputValue();
   expect(ageValue).toBe('22');
-  let selectedOption = await page.getByPlaceholder('Choose').inputValue();
+  const selectedOption = await page.getByPlaceholder('Choose').inputValue();
   expect(selectedOption).toBe('charmander');
 
+  await page.waitForSelector('button:has-text("Reset")');
   await page.getByRole('button', { name: 'Reset' }).click();
 
-  nameValue = await page.getByPlaceholder("Trainer's name").inputValue();
-  expect(nameValue).toBe('');
-  ageValue = await page.getByPlaceholder("Trainer's age").inputValue();
-  expect(ageValue).toBe('');
-  selectedOption = await page.getByPlaceholder('Choose').inputValue();
-  expect(selectedOption).toBe('');
+  const nameValueEmpty = await page.getByPlaceholder("Trainer's name").inputValue();
+  expect(nameValueEmpty).toBe('');
+  const ageValueEmpty = await page.getByPlaceholder("Trainer's age").inputValue();
+  expect(ageValueEmpty).toBe('');
+  const selectedOptionEmpty = await page.getByPlaceholder('Choose').inputValue();
+  expect(selectedOptionEmpty).toBe('');
 });
 
 test('clicking on Submit with an unfilled form should display an error message', async ({ page }) => {
