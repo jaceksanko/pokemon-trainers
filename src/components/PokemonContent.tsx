@@ -4,6 +4,15 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { TypeLabel } from './TypeLabel';
 import { useErrorBoundary } from 'react-error-boundary';
+import { Loader } from './Loader';
+
+const ImageLoader = () => {
+  return (
+    <Box width={194} height={196} display="flex" justifyContent="center" alignItems="center">
+      <Loader />
+    </Box>
+  );
+};
 
 export const PokemonContent = ({ pokemonData }: { pokemonData: IPokemon | null }) => {
   const [image, setImage] = useState<string | null>(null);
@@ -64,7 +73,7 @@ export const PokemonContent = ({ pokemonData }: { pokemonData: IPokemon | null }
         gap: '24px'
       }}
     >
-      {image && <Image src={image} alt={'Pokemon image'} width={194} height={196} />}
+      {image ? <Image src={image} alt={'Pokemon image'} width={194} height={196} /> : <ImageLoader />}
       <Box sx={{ display: 'flex', alignItems: 'left', flexDirection: 'column', justifyContent: 'center', gap: '8px' }}>
         <Typography variant="body1" textTransform="capitalize">
           Name: {pokemonData?.name}
