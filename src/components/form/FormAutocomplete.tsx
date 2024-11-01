@@ -3,11 +3,13 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { SxProps, Theme } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ControllerRenderProps } from 'react-hook-form';
-import { FormFieldKeys, FormFields } from '../FormContainer'
+import { FormFieldKeys, FormFields } from '../FormContainer';
+import debounce from 'debounce';
+import { useQuery } from '@tanstack/react-query';
 
 export interface IPokemon {
   name: string;
@@ -25,41 +27,25 @@ export const FormAutocomplete = ({
   sx?: SxProps<Theme>;
   field: ControllerRenderProps<FormFields, FormFieldKeys>;
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState<readonly IPokemon[]>([]);
+  const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
+  const { data, error, isLoading } = useQuery<IPokemon[]>({
+    queryKey: ['pokemonName', value],
+    queryFn: async () => {
+      const res = await fetch(`/api/search?name=${value}`);
+      if (!res.ok) {
+        throw new Error('Failed to fetch pokemon data');
+      }
+      const data = await res.json();
+      return data.data;
+    },
+    enabled: !!value || value === ''
+  });
+
+  console.log('data', data);
 
   const ExpandIcon = open ? ExpandLessIcon : ExpandMoreIcon;
-
-  React.useEffect(() => {
-    if (!loading) {
-      return undefined;
-    }
-
-    (async () => {
-      try {
-        const res = await fetch(`/api/search?name=${value}`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        if (data) {
-          setOptions([...data?.data]);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [loading]);
-
-  React.useEffect(() => {
-    if (!open) {
-      setOptions([]);
-    }
-  }, [open]);
 
   return (
     <Autocomplete
@@ -80,7 +66,6 @@ export const FormAutocomplete = ({
       sx={sx}
       onOpen={() => {
         setOpen(true);
-        setLoading(options.length === 0);
       }}
       onClose={() => {
         setValue('');
@@ -88,8 +73,8 @@ export const FormAutocomplete = ({
       }}
       filterOptions={(x) => x}
       getOptionLabel={(option) => option.name}
-      options={options}
-      loading={loading}
+      options={data ?? []}
+      loading={isLoading}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -98,14 +83,13 @@ export const FormAutocomplete = ({
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>
-                {loading ? (
+                {isLoading && open ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : (
                   <ExpandIcon
                     sx={{ fontSize: 20, cursor: 'pointer' }}
                     onClick={() => {
                       setOpen(!open);
-                      setLoading(options.length === 0);
                     }}
                   />
                 )}
@@ -122,10 +106,9 @@ export const FormAutocomplete = ({
             }
           }}
           value={value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setLoading(true);
+          onChange={debounce((event: React.ChangeEvent<HTMLInputElement>) => {
             setValue(event.target.value);
-          }}
+          }, 2000)}
         />
       )}
       value={field.value as IPokemon | null}

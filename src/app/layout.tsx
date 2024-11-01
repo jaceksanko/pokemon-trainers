@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import './globals.css';
 import theme from '@/themes/theme';
+import ReactQueryProvider from '@/providers/ReactQueryProvider';
 
 export const metadata: Metadata = {
   title: 'Pokemon trainers',
@@ -19,10 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
-          </ThemeProvider>
+          <ReactQueryProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              {children}
+            </ThemeProvider>
+          </ReactQueryProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
